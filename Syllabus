@@ -1,0 +1,27 @@
+1. Introduction to automation
+2. Introduction to selenium
+3. Installation of selenium and setting-up the Environments
+4. Invoking the test-cases in various browsers
+5. Browser related operations
+6. HTML and CSS basics
+7. Identification of elements
+8. Locators
+    • Id
+    • Name
+    • Class Name
+    • Tag-name
+    • Link text
+    • Partial link-text
+    • CSS selectors
+    • XPATH
+9. Finding element • Using find element
+10. Finding Multiple elements
+11. Select class
+12. Selenium Action Class
+13. Handling Frames and Windows
+14. Pop-up Handling
+15. Taking Screenshots
+16. Unit-Test Frameworks
+17. Pytest Frameworks
+18. Page Object Model
+19. Data Driven Frameworks
