@@ -1,0 +1,986 @@
+Selenium    :   To automate the "web-applications",  we use selenium
+
+To install selenium
+    Go to command prompt    -->     pip install selenium
+    The above command will install the latest version of selenium
+
+    To install the specific version of selenium
+    Go to command prompt    -->     pip install selenium==version
+
+    To upgrade the selenium version
+    Go to command prompt    -->     pip install --upgrade selenium
+                                    pip install -U selenium
+
+    To upgrade to a specific version
+    Go to command prompt    -->     pip install --upgrade selenium==version
+                                    pip install -U selenium==version
+
+To check if selenium is installed properly or not
+        Go to command prompt    -->     pip show selenium
+        Tha above command will give all the details about selenium
+
+To check the selenium version
+        import selenium
+        selenium.__version__
+
+In command prompt
+    *   pip list        --> This gives the list of all the installed packages
+    *   pip --version   --> This gives the list of all the installed packages
+
+To check if selenium is available in the project
+    Open Pycharm    --> click on hamburger button --> file -->  settings    --> Project:ProjectName --> Python Interpreter
+    This will give the list of all the available packages
+    Check for selenium
+    If selenium is available, then selenium is present in the project
+    If selenium is not available, then selenium is not present in the project
+
+When selenium is not available, click on "+" and enter the package name and install the package
+
+####################################################################################################################
+
+SELENIUM ARCHITECTURE
+
+CLIENT LIBRARIES / LANGUAGE BINDINGS
+•	Selenium supports multiple languages such as Python, Java, C#, JavaScript, Ruby.
+•	Client libraries provide various methods to perform different browser actions. e.g. get, title, find_element.
+•	As automation developers we call these methods from our development environment. e.g. VSCode
+•	Once we execute the script, the client libraries convert our code that we have written into a JSON (JavaScript Object Notation) format and sent as a request to Driver over HTTP.
+
+BROWSER DRIVERS
+•	Each browser has its own implementation of "WebDriver" protocol (mandatory services that needs to be implemented in order for selenium to interact with browser) called drivers.
+•	The browser drivers are responsible for controlling the actual browsers since the browser implementation details will be known only to the developer of driver.
+•	Each browser driver will be maintained by respective browser vendor. e.g. Chrome Driver is maintained by Google and Safari Driver is maintained by Apple.
+•	Each method in the client library is mapped to a specific web-service in the driver.
+•	The driver interprets the incoming request from the client and controls the actual browser.
+•	Once the browser operation is complete, the response is sent back to the client/client library by driver in JSON format.
+•	Client library interprets the JSON response and prints the response in readable format in the editor console.
+
+###################################################################################################################
+
+Selenium3   :   We had to install the driver objects.
+                Depending on the browser version, we had to install the specific version of driver.
+                And we had to update the driver whenever browser gets updated
+                SYNTAX  :   from selenium import webdriver
+                            driver = webdriver.Browser(executable_path="path_of_driver")
+
+Selenium4   :   No need to install the driver objects.
+                Everything is taken care internally
+                SYNTAX  :   from selenium import webdriver
+                            driver = webdriver.Browser()
+
+###################################################################################################################
+
+Initialize the Chrome browser
+
+    from selenium import webdriver
+    driver = webdriver.Chrome()
+
+    The above command will close the browser automatically
+
+    To prevent the browser from automatically closing
+    from selenium import webdriver
+    opts = webdriver.ChromeOptions()
+    opts.add_experimental_option("detach", True)
+    driver = webdriver.Chrome(opts)
+
+##-----------------------------------------------------------------------------------------------------------------
+
+Initialize Firefox browser
+
+    from selenium import webdriver
+    driver = webdriver.Firefox(opts)
+
+    Firefox browser will not close automatically. So no need to consider FirefoxOptions and add_experimental_option attribute
+
+##-----------------------------------------------------------------------------------------------------------------
+
+Initialize the Edge browser
+
+    from selenium import webdriver
+    driver = webdriver.Edge()
+
+    The above command will close the browser automatically
+
+    To prevent the browser from automatically closing
+    from selenium import webdriver
+    opts = webdriver.EdgeOptions()
+    opts.add_experimental_option("detach", True)
+    driver = webdriver.Edge(opts)
+
+###################################################################################################################
+
+To launch the application       :   driver.get("url")
+To maximize the window          :   driver.maximize_window()
+To minimize the window          :   driver.minimize_window()
+To go back                      :   driver.back()
+To go forward                   :   driver.forward()
+To refresh                      :   driver.refresh()
+To close the active window      :   driver.close()
+To close all the windows        :   driver.quit()
+
+    Few properties
+            *   current_url     :   This gives the url of the page
+                                    SYNTAX  :   driver.current_url
+            *   name            :   This gives the name of the browser
+                                    SYNTAX  :   driver.name
+            *   title           :   This gives the title of the page
+                                    SYNTAX  :   driver.title
+
+###################################################################################################################
+
+WEB-ELEMENT METHODS     :   To find and to interact with the web-elements we have web-element methods.
+There are 2 types of web-element methods
+
+*   find_element    :   To find and to interact with the web-element, we go for find_element
+                        Return type is a web-element
+                        Can locate only the first occurance.
+                        If the element is not located, find_element will give NoSuchElementException
+                        SYNTAX  :   driver.find_element("locator_name", "locator_value")
+
+
+*   find_elements   :   To find and to interact with the web-elements, we go for find_elements
+                        Return type is list of web-elements
+                        Can locate all the occurances
+                        If the elements are not located, then find_elements will give empty list
+                        SYNTAX  :   driver.find_elements("locator_name", "locator_value")
+
+###################################################################################################################
+
+LOCATORS    :   To locate the web-elements we go for locators
+
+There are 8 types of locators
+    *   id                  :   id is an attribute which is also a locator
+                                If we have "id" attribute, then we can go for "id" locator.
+                                Performance is faster compared to the other locators
+                                SYNTAX  :   driver.find_element("id", "id_value")
+
+    *   name                :   name is an attribute which is also a locator
+                                If we have "name" attribute, then we can go for "name" locator.
+                                name is not unique
+                                SYNTAX  :   driver.find_element("name", "name_value")
+
+    *   class name          :   "class" is an attribute, "class name" is a locator
+                                If we have "class" attribute, then we can go for "class name" locator.
+                                DRAWBACKS
+                                    *   class name is not unique
+                                        Whenever there are multiple occurances, class name locator will always consider the first occurance
+                                    *   Cannot locate the spaces.
+                                        Whenever there is a space in the value of the class attribute, we should replace the space with dot(.)
+                                SYNTAX  :   driver.find_element("class name", "value")
+
+    *   tag name            :   We can locate the web-elements using their tagname.
+                                But tagname will always consider the first occurance
+                                SYNTAX  :   driver.find_element("tag name", "tagname")
+
+    *   link text           :   The text is present between the anchor tag, we call it as a link text.
+                                To locate the link texts, we use "link text" locator
+                                link text can only consider the anchor tag elements
+                                If multiple elements are having same link text, then this locator will consider only the first occurance
+                                SYNTAX  :   driver.find_element("link text", "text")
+
+    *   partial link text   :   Same as link text. Here also the tagname should be anchor.
+                                Instead of locating the elements using complete text, we use partial portion of the text to locate it.
+                                SYNTAX  :   driver.find_element("partial link text", "partial text")
+
+    *   css selector        :   To locate the web-elements using any attribute, we go for css selector
+                                SYNTAX  :   tagname[attr_name="attr_value"]
+
+                                DRAWBACKS
+                                *   Cannot locate text using css selector
+                                *   Indexing is not possible
+                                    Incase of multiple occurances, css selector will always consider the first occurance
+                                *   Backtraversing is not possible
+
+    *   xpath               :   To locate the web-elements uniquely on the web-application we go for xpath
+                                There are 2 types of xpath
+                                *   Absolute xpath  :   Starts from the root of html
+                                                        We use / to write the absolute xpath
+                                                        / represents immediate child
+                                                        Very lengthy and time consuming
+                                                        Reusability is not possible
+                                                        Locating dynamically changing elements are not supported very well.
+
+                                *   Relative xpath  :   Does not start from the root of html
+                                                        We use // to write the relative xpath
+                                                        // represents any child
+
+                                                        Attributes      :   //tagname[@attr_name="attr_value"]
+                                                        text            :   //tagname[text()="text"]
+                                                        contains        :   //tagname[contains(text(), "partial_text")]
+                                                        Group indexing  :   (any_xpath)[index_num]
+                                                        Dependent-independent xpath
+                                                            *   Identify the dependent-independent elements
+                                                            *   Write the xpath of the independent element
+                                                            *   Traverse back(/..) until we get the common match for dep-ind elements
+                                                            *   Continue writing the xpath of the dependent element
+
+###################################################################################################################
+
+SYNCHRONIZATION     :   Matching the speed of the webdriver to the speed of the web-application.
+
+There are 2 types of synchronization
+*   unconditional sychronization    :   No conditions are passed
+            We achieve unconditional sychronization by passing time.sleep()
+            It is a static wait
+            Unnecessary wait is too much
+
+*   conditional synchronization     :   Conditions are passed
+        There are 2 types
+
+        *   implicit_wait   :   Conditions are defined internally
+                                SYNTAX  :   driver.implicitly_wait(n)
+                                whenever there is a delay in the loading of the web-elements, implicit_wait will automatically
+                                make our driver wait for maximum of "n" seconds.
+                                As soon as the element is located, it will start performing the operations right away.
+                                There is no unnecessary wait.
+                                One implicit_wait is sufficient for the whole program
+
+        *   explicit_wait   :   Conditions will be given externally
+                                We have to import WebDriverWait and expected_conditions
+
+                                from selenium.webdriver.support.ui import WebDriverWait
+                                from selenium.webdriver.support import expected_conditions
+
+                                wait_obj = WebDriverWait(driver, timeouttime)
+
+###################################################################################################################
+
+LISTBOXES/DROPDOWNS     :   If the tagname of the listbox  is "select", then it is a "standard listbox"
+    We have two types
+    *   single-select listbox   :   If we can select only one element from the dropdown, then it is a single-select listbox
+    *   multi-select listbox    :   If we can select multiple elements from the dropdown, then it is a multi-select listbox
+
+    We handle single-select and multi-select listboxes in the same way
+
+    To handle the single select listboxes, we have to import Select class
+
+    from selenium.webdriver.support.select import Select
+    select_obj = Select(listbox_having_select_tag)
+
+    To select the elements from the dropdown, we have 3 attributes
+    *   select_by_index         :   Here we select the elements of the dropdown by passing the index number.
+                                    Index numbers starts from 0
+                                    SYNTAX  :   select_obj.select_by_index(index_num)
+
+    *   select_by_value         :   Here we select the elements of the dropdown by passing the value of the value attribute
+                                    SYNTAX  :   select_obj.select_by_value("value")
+
+    *   select_by_visible_text  :   Here we select the elements of the dropdown by passing the text visible
+                                    SYNTAX  :   select_obj.select_by_visible_text("text")
+
+
+    NOTE    :   If the listbox is not standard, then we have to locate the web-elements and then click on it
+
+    Incase of multi-select listboxes, we can de-select the elements from the dropdown
+    We have 3 attributes to deselect the elements from the dropdown
+    *   deselect_by_index     :   Will deselect the element which is present in that index number
+                                SYNTAX  :   select_obj.deselect_by_index(index_num)
+
+    *   deselect_by_value     :   Will deselect the element of the value passed
+                                SYNTAX  :   select_obj.deselect_by_value("value")
+
+    *   deselect_by_visible_text  :   Will deselect the element having the given text
+                                SYNTAX  :   select_obj.deselect_by_visible_text("text")
+
+
+    *   select_obj.deselect_all()   :   This will deselect all the selected elements
+
+###################################################################################################################
+
+ALERTS  :   It is just a pop-up message that appears on the browser and it requires the user to perform the action
+            Alerts are not inspectable
+            If it is inspectable, then it is not an alert.
+            To handle the alerts, we should switch the driver to the alert
+
+            SYNTAX  :   alert_obj = driver.switch_to.alert
+                        To handle the alerts, there are two attributes
+                        *   accept  :   To accept the alert, we use this
+                                        SYNTAX  :   alert_obj.accept()
+                        *   dismiss :   To dismiss the alert, we use this
+                                        SYNTAX  :   alert_obj.dismiss()
+
+            There are different types of alerts
+            *   simple alert            :   If the alert is having only one option, then we call it as a simple alert
+                                            We should switch the driver to the alert.
+                                            To handle simple alert we can use alert_obj.accept() or alert_obj.dismiss()
+
+            *   confirmation alert      :   This asks for user confirmation.
+                                            It will have two options, YES/NO, OK/CANCEL, AGREE/DISAGREE,..
+                                            We should switch the driver to the alert.
+                                            To click on YES/OK/AGREE        --> alert_obj.accept()
+                                            To click on NO/CANCEL/DISAGREE  --> alert_obj.dismiss()
+
+            *   prompt alert            :   Here user should enter the data to the alert
+                                            We should switch the driver to the alert.
+                                            alert_obj.send_keys("data")
+                                            alert_obj.accept()
+
+            *   Authentication popup    :   To launch the application, we have to give the username and password
+                                            We cant inspect the popup and also we cant switch the driver to the pop-up
+                                            So, we will give the username and password while launching the web-application only
+                                            SYNTAX  :   https://username:password@url
+
+            *   file-upload pop-up      :   file_path = r'absolute_path_of_file'
+                                            webelement.send_keys(file_path)
+
+            *   push notifications      :   The notifications such as "Allow IRCTC to send notifications,."
+                                            Such pop-ups we call them as push notifications.
+                                            We cant predict them,
+                                            So instead of handling them we disable them
+
+                                            from selenium import webdriver
+                                            opts = webdriver.BrowserOptions()
+                                            opts.add_argument("--disable-notifications")
+                                            driver = webdriver.Browser(opts)
+
+###################################################################################################################
+
+ACTIONCHAINS    :   The operations which are performed using mouse/keyboard, we call them as "low-level" operations.
+                    To perform "low-level" operations in selenium, we go for ActionChains
+
+                    First we have to import ActionChains
+                    To perform keyboard related operations, we have to import Keys
+
+                    from selenium.webdriver.common.action_chains import ActionChains
+                    from selenium.webdriver.common.keys import Keys
+
+                    ac_obj = ActionChains(driver)
+
+                    Mouse hovering          :   ac_obj.move_to_element(element).perform()
+                    Right click             :   ac_obj.context_click(element).perform()
+                    Double click            :   ac_obj.double_click(element).perform()
+                    Drag and drop           :   ac_obj.drag_and_drop(draggable_ele, droppable_ele).perform()
+                    Scrolling operations    :
+                        To specific element :   ac_obj.scroll_to_element(element).perform()
+                        Page down           :   ac_obj.send_keys(Keys.PAGE_DOWN).peform()
+                        Page up             :   ac_obj.send_keys(Keys.PAGE_UP).perform()
+                        End of the page     :   ac_obj.send_keys(Keys.END).perform()
+                        To start of page    :   ac_obj.send_keys(Keys.HOME).perform()
+
+                    Keyboard related        :   ac_obj.send_keys(Keys.KEY).perform()
+
+###################################################################################################################
+
+WINDOW_HANDLING :   We can handle multiple windows in selenium.
+
+    Whenever we want to perform any operations in other tabs/windows we should switch the driver to those windows/tabs.
+    By default, the driver will be present on the broswer which we have launched.
+
+    window_handles  --> This is a property. It will give the list of all the handles(active tabs/windows)
+
+    handles = driver.window_handles             ## list of handles      [parent_handle, child_handle,..]
+
+    To switch the driver to different window/tab
+        driver.switch_to.window(handles[index_number])
+
+###################################################################################################################
+
+IFRAMES     :   Iframe stands for inline frame
+                It is basically an application present inside another application is an iframe
+                We cannot handle the elements present inside the frame
+                To handle the elements inside the frame, we will switch the driver to the frame
+                The tagname of an iframe will always be "iframe"
+
+                Steps to handle iframe
+                *   Locate the iframe
+                    frame = driver.find_element("loc_name", "loc_value")
+                *   Switch the driver to the frame
+                    driver.switch_to.frame(frame)
+                *   Perform the operations inside the frame
+                *   Once we are done performing the operations, we should switch back to the parent frame
+                    driver.switch_to.parent_frame()
+
+###################################################################################################################
+
+READING EXCEL   :   We use xlrd to read excel files
+
+        To install xlrd
+        Go to command prompt    -->     pip install xlrd==1.2.0
+
+        STEP1   :   import xlrd
+        STEP2   :   Open the excel file
+                    workbook = xlrd.open_workbook(r"excel_file_path")           ## book object
+        STEP3   :   Open the worksheet
+                    worksheet = workbook.sheet_by_name("SheetName")             ## sheet object
+        STEP4   :   Convert the sheet object to the generator object
+                    rows = worksheet.get_rows()                                 ## generator object
+        STEP5   :   Traverse or typecast or use next() to fetch the data from the generator object
+
+
+        open_workbook   :   It is an attribute, which opens the excel file.
+                            Return type is a book object
+        sheet_by_name   :   It is an attribute, it will open the Sheet to read.
+                            We should pass the SheetName.
+                            Return type is a sheet object
+        get_rows        :   This attribute will convert the sheet object to the generaator object
+
+###################################################################################################################
+
+WRITING EXCEL   :   To write the data in to the excel file, we use openpyxl
+
+    To install openpyxl
+    Go to command prompt    --> pip install openpyxl
+
+    STEP1   :   from openpyxl import Workbook
+    STEP2   :   create the excel workbook
+                workbook = Workbook()
+    STEP3   :   Initialize the worksheet
+                worksheet = workbook.active
+    STEP4   :   set the title for the worksheet(optional)
+                worksheet.title = "title"
+    STEP5   :   Write the data to the excel
+    STEP6   :   Save the excel file
+                workbook.save("filename.xlsx")      ## This will save the excel file in the same package as our python file.
+                To save the excel file in different location
+                workbook.save(r"path_of_folder\filename.xlsx")
+
+
+    Workbook    :   It is a class, on creating an object for the class, it will create the new excel workbook
+    active      :   This will initialize the active(new) worksheet
+    title       :   It is a property, it will set the title for the worksheet we have initialized
+    save        :   This will save the excel file
+
+###################################################################################################################
+
+PYTEST  :   It is a unit testing framework.
+            Unit testing is testing the small portion of the entire program, we call it as unit testing
+            To perform unit testing in selenium, we use PYTEST
+
+            *   Easy syntax
+            *   Detailed reports
+            *   Cross browser is possible
+
+            RULES
+            *   filename should always start with test_ or end with _test
+                eg  :   test_filename.py    OR      filename_test.py
+            *   function name should start with test_
+                eg  :   def test_funcname():
+                            pass
+            *   class name should start with Test
+                eg  :   class TestClassName:
+                            pass
+
+            Pytest will automatically recognize the files, functions and classes which are following the rules.
+            So, without creating object for the class and without calling the function, we can execute them
+
+            To execute the pytest files
+            Right click anywhere on the test_file --> open in --> terminal --> pytest test_filename.py -vs
+                -v  --> Verbosity.  This gives the detailed explanation
+                -s  --> Scripting.  This prints all the print statements
+
+            To execute all the test_files in the package
+                In terminal --> pytest -vs
+                This we call it as batch execution
+
+            NOTE
+            *   test_functions/test_methods donot take any parameters.
+                They only take fixtures as parameters
+            *   We should not call the test_functions or create the object for the TestClass
+                If we call, it will execute twice
+            *   Pytest cannot recognize the nested test_functions,
+                It can recognize only the outer test_function
+            *   Error in once testcase doesnot affect the execution of the other testcases
+            *   TestClasses should not have __init__
+
+###################################################################################################################
+
+GENERATE REPORTS    :   We can generate html reports
+    Go to command prompt    -->     pip install pytest-html
+
+    To generate the reports
+        In terminal --> pytest test_filename.py -vs --html="report_name.html"
+        The above command will generate the html report in the same package as our executing test_file.
+
+    To store the report in different location
+        In terminal --> pytest test_filename.py -vs --html="location\report_name.html"
+
+###################################################################################################################
+
+FIXTURES    :   In pytest, fixtures are commonly used to perform the setup and teardown operations
+                setup       :   The set of operations which executes before the execution of the test_function
+                                Such as, initialization of the browser and launching the application
+                teardown    :   The set of operations which executes after the execution of the test_function
+                                Such as closing the browser
+
+                A fixture is a function which runs before and after the execution of the test_function.
+                We use fixtures to avoid the repetation of the setup and teardown operations.
+
+                SYNTAX  :   @pytest.fixture()
+                            def function():
+                                pass            ## setup
+                                yield
+                                pass            ## teardown
+
+                            def test_func(function):
+                                pass
+
+                            The operations before yield will act as setup
+                            The operations after yield will act as teardown
+
+                            To apply the fixture for the test_functions, we should pass it as a parameter for the test_functions
+
+                Fixtures has three parameters. All three are optional parameters
+                *   autouse     :   When we give autouse=True, the fixture will be applied for all the test_function/test_methods present in that module
+
+                *   scope       :   This defines the scope of the fixture
+                                    If scope="class", the fixture will be applied on a class level.
+                                    The fixture will execute once for the entire class.
+                                    Before the execution of the entire class, setup will be performed
+                                    After the execution of the entire class, teardown will be performed
+
+                                    If scope="module", the fixture will be applied on a module level.
+                                    The fixture will execute once for the entire module.
+                                    Before the execution of the entire module, setup will be performed
+                                    After the execution of the entire module, teardown will be performed
+
+                                    If scope="session", the fixture will be applied on a session level.
+                                    The fixture will execute once for the entire session.
+                                    Before the execution of the entire session, setup will be performed
+                                    After the execution of the entire session, teardown will be performed
+
+                                    By default, scope="function"
+
+                *   params      :   To perform multiple browser execution we go for params
+
+                                    SYNTAX  :   @pytest.fixture(params=['browser1', 'browser2', 'browser3'])
+                                                def func(request):
+                                                    parameter = request.param
+
+                                                    if parameter == 'browser1':
+                                                        driver = webdriver.Browser1()
+                                                    elif parameter == 'browser2':
+                                                        driver = webdriver.Browser2()
+                                                    elif parameter == 'browser3':
+                                                        driver = webdriver.Browser3()
+
+###################################################################################################################
+
+CONFTEST    :   In pytest, conftest is a configuration test_file
+                In this file, we store the fixture(initialization of driver and launching of the web-app) that should be applied for multiple test_files
+
+                We dont have to import conftest file
+                Pytest will automatically recognize the fixture present inside the conftest
+
+                *   The filename should always be "conftest.py"
+                *   The conftest file should be placed in the test_package
+
+                *   To avoid the code(fixture) repetation
+                *   To keep the browser setup at one place
+
+###################################################################################################################
+
+MARKERS     :   To group the testcases we go for markers
+    There are 2 types of markers
+    *   inbuilt markers :   There are 4 types
+            *   skip    :   To skip the execution of the testcases, we go for skip marker
+                            This is an unconditional skip.
+                            To skip the testcase, we dont have to pass any condition or reason
+                            It will skip the testcase which are decorated with @pytest.mark.skip
+
+                            SYNTAX  :       @pytest.mark.skip([reason])
+                                            def test_func():
+                                                pass
+
+                                            reason is optional parameter
+
+            *   skipif  :   This also skips the execution of the testcases, but the skip is based on a condition.
+                            This is a conditional skip.
+                            To skip the testcases, we should pass the condition and also reason.
+                            Both are mandatory parameters
+
+                            SYNTAX  :       @pytest.mark.skipif(condition, reason)
+                                            def test_func():
+                                                pass
+
+                                            If the condition is True, it will skip the execution of the testcase
+                                            If the condition is False, it will execute the testcase
+
+            *   parametrize :   To pass parameters for the testcases, we use this marker
+
+                            SYNTAX  :   @pytest.mark.parametrize("args", [("actual_args")])
+                                        def test_case(args):
+                                            pass
+
+            *   xfail   :   This is an expected failure
+                            We use @pytest.mark.xfail to test the test_functions which are expeted to fail.
+
+                            SYNTAX  :   @pytest.mark.xfail
+                                        def test_func():
+                                            pass
+
+                                        If the test_func fails, then our output will be XFAIL
+                                        If the test_func passes, then our output will be XPASS
+
+
+    *   custom markers  :   We can group the testcases by passing the names for the testcases and grouping them
+
+                            SYNTAX  :   @pytest.mark.name               ## can give any name
+                                        def test_case():
+                                            pass
+
+                            To execute only the grouped testcases
+                            In terminal --> pytest test_filename.py -vs -m="name"
+
+                            If we dont want to execute a particular grouped testcase
+                            In terminal --> pytest test_filename.py -vs -m="not name"
+
+###################################################################################################################
+
+DEPENDENCIES    :   We can make one test_func dependent on other test_functions
+
+                    In command prompt   --> pip install pytest-dependency
+
+                    SYNTAX  :   @pytest.mark.dependency()                           ## Independent testcase
+                                def test_func1():
+                                    pass
+
+                                @pytest.mark.dependency(depends=["test_func1"])     ## Dependent testcase
+                                def test_func2():
+                                    pass
+
+                    If the independent testcase execute without any error, then dependent testcase also executes
+                    If independent testcase is not working fine, then dependent testcase will be skipped
+
+                    We can have one dependent testcase depending on multiple independent testcases
+
+                    SYNTAX  :   @pytest.mark.dependency()                           ## Independent testcase
+                                def test_func1():
+                                    pass
+
+                                @pytest.mark.dependency()                           ## Independent testcase
+                                def test_func2():
+                                    pass
+
+                                @pytest.mark.dependency(depends=["test_func1", "test_func2"])     ## Dependent testcase
+                                def test_func3():
+                                    pass
+
+                    If all the independent testcases executes without any error, then dependent also executes
+                    If any one of the independent testcase fails, then dependent testcase will be skipped
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

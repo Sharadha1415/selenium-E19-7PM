@@ -1,0 +1,55 @@
+1. What are the main differences between findElement() and findElements()?
+2. How do you handle dynamic elements in Selenium? Give an example.
+3. What are the different types of waits in Selenium? When should you use each?
+4. Explain the difference between driver.get() and driver.navigate().to().
+5. How would you handle multiple browser windows or tabs in Selenium?
+6. What is the purpose of the Page Object Model (POM) in Selenium?
+7. How can you handle dropdowns in Selenium?
+8. What is a StaleElementReferenceException and how can you avoid it?
+9. Explain how you would handle alerts and pop-ups in Selenium WebDriver.
+10. How do you perform mouse hover or drag-and-drop actions in Selenium?
+11. Explain the structure of your automation framework.
+2️⃣ Write an XPath for the “Search” button on the MakeMyTrip application.
+3️⃣ What is the Actions class in Selenium? Demonstrate how to perform a mouse hover action using it.
+4️⃣ Difference between Explicit Wait and Implicit Wait in Selenium.
+5️⃣ Types of locators in Selenium – which one is the fastest?
+6️⃣ What are listeners in TestNG/Selenium?
+7️⃣ How have you implemented Abstraction and Polymorphism in your framework?
+8️⃣ Explain the concepts of Abstraction and Interface in Java.
+9️⃣ Java Coding Challenge: 🔸
+Input: "I Love Java Programming" 🔸 Expected Output: "I Love Java gnimmargorP"
+
+𝗧𝗲𝗰𝗵𝗻𝗶𝗰𝗮𝗹 𝗜𝗻𝘁𝗲𝗿𝘃𝗶𝗲𝘄 𝗤𝘂𝗲𝘀𝘁𝗶𝗼𝗻𝘀:
+1. Could you please introduce yourself and share some details about your professional background?
+2. Can you describe the automation framework you have used in your project?
+3. How would you add new fields to the object repository?
+4. Can you explain the structure of your automation framework, providing an example?
+5. What is the difference between a single slash (/) and a double slash (//) in XPath?
+6. What are the different TestNG annotations, and what is their execution order?
+8. Can you explain Jenkins and its role in automation testing?
+9. How do you handle alerts in Selenium
+10. How do you handle file upload buttons (browse buttons) in Selenium?
+11. What is polymorphism, and how is it applied in Selenium?
+12. What is method overloading, and in what scenarios do you use method overloading in Selenium?
+
+𝗖𝗹𝗶𝗲𝗻𝘁 𝗜𝗻𝘁𝗲𝗿𝘃𝗶𝗲𝘄 𝗤𝘂𝗲𝘀𝘁𝗶𝗼𝗻𝘀:
+1. Can you describe your current project and explain its main components?
+2. Which automation framework are you using in your project? Please provide details.
+3. What is the Page Object Model (POM), and why is the object repository used in POM?
+4. Can you explain the purpose of the Robot class in Selenium? (Java)
+5. Why is Page Factory used in object repositories? (Java)
+6. How do you launch Internet Explorer in Selenium WebDriver?
+7. How do you use the Select class in Selenium for handling dropdowns?
+8. How do you work with frames in Selenium? How many ways can you pass values to frames?
+9. Can you explain the use of XPath and sibling elements in XPath?
+10. What is the difference between implicit wait and explicit wait in Selenium? Could you also provide the syntax?
+11. Could you write a program for taking a screenshot in Selenium?
+
+Selenium WebDriver Questions:
+What are the different types of waits in Selenium? Explain with real-time examples.
+What is the Page Object Model (POM)? How have you implemented it in your framework?
+How do you handle multiple browser windows or tabs in Selenium WebDriver?
+What is the difference between driver.close() and driver.quit()?
+How do you handle dropdowns using the Select class in Selenium?
+How do you take screenshots using Selenium WebDriver?
+How do you handle iframes in Selenium? Provide a use case
